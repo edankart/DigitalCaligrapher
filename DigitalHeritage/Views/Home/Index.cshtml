@@ -1,0 +1,400 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<style>
+    /* Hero Section */
+    .hero {
+        position: relative;
+        background: #fafafa;
+        padding: 140px 20px;
+        text-align: center;
+        border-bottom: 1px solid #eaeaea;
+        overflow: hidden;
+        box-shadow: inset 0 -30px 40px -30px rgba(0,0,0,0.05);
+    }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+    #bg-canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        opacity: 0.3;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .hero h1 {
+        font-size: 4rem;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        margin-bottom: 20px;
+        color: #1a1a1a;
+    }
+
+        .hero h1 span {
+            color: #e63946;
+        }
+
+    .hero p {
+        font-size: 1.25rem;
+        color: #555;
+        max-width: 600px;
+        margin: 0 auto 40px auto;
+        line-height: 1.6;
+    }
+
+    .hero-btn {
+        background-color: #1a1a1a;
+        color: white;
+        padding: 16px 40px;
+        font-size: 1.1rem;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
+
+        .hero-btn:hover {
+            background-color: #e63946;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(230, 57, 70, 0.2);
+            color: white;
+        }
+
+    .features {
+        padding: 80px 20px;
+        max-width: 1000px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+        text-align: center;
+    }
+
+    .feature-card h3 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    .feature-card p {
+        color: #666;
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    .feature-icon {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        display: inline-block;
+        animation: floatUpDown 3s ease-in-out infinite;
+        transition: transform 0.3s ease;
+        cursor: pointer;
+    }
+
+    .feature-card:nth-child(1) .feature-icon {
+        animation-delay: 0s;
+    }
+
+    .feature-card:nth-child(2) .feature-icon {
+        animation-delay: 0.5s;
+    }
+
+    .feature-card:nth-child(3) .feature-icon {
+        animation-delay: 1s;
+    }
+
+    @@keyframes floatUpDown {
+        0% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-15px);
+        }
+
+        100% {
+            transform: translateY(0);
+        }
+    }
+
+    .feature-icon:hover {
+        animation-play-state: paused;
+        transform: translateY(0) scale(1.1);
+    }
+
+    @@media (max-width: 768px) {
+        .hero h1 {
+            font-size: 2.5rem;
+        }
+
+        .features {
+            grid-template-columns: 1fr;
+        }
+    }
+    /* --- ANIMATION STYLES --- */
+
+    /* Start state (invisible and shifted down) */
+    .fade-up-element {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+        /* End state (visible and in place) */
+        .fade-up-element.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    /* Stagger delays (задержки) */
+    .delay-1 {
+        transition-delay: 0.2s;
+    }
+
+    .delay-2 {
+        transition-delay: 0.4s;
+    }
+
+    .delay-3 {
+        transition-delay: 0.6s;
+    }
+
+    .delay-4 {
+        transition-delay: 0.8s;
+    }
+
+    .delay-5 {
+        transition-delay: 1.0s;
+    }
+    /* Floating Fan Animation */
+    .floating-fan {
+        position: absolute;
+        top: 10%;
+        right: 5%;
+        width: 250px;
+        height: 250px;
+        z-index: 0; /* Behind text */
+        opacity: 0.3; /* Subtle */
+        animation: floatFan 6s ease-in-out infinite, rotateFan 20s linear infinite;
+    }
+
+    @@keyframes floatFan {
+        0%
+
+    {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+
+    }
+
+    @@keyframes rotateFan {
+        0%
+
+    {
+        transform: rotate(-10deg);
+    }
+
+    50% {
+        transform: rotate(10deg);
+    }
+
+    100% {
+        transform: rotate(-10deg);
+    }
+
+    }
+
+    /* Hide fan on mobile */
+    @@media (max-width: 992px) {
+        .floating-fan
+
+    {
+        display: none;
+    }
+
+    }
+</style>
+
+<!-- Main Hero Section -->
+<div class="hero">
+    <canvas id="bg-canvas"></canvas>
+    <!-- Animated Traditional Object (Fan) -->
+    <div class="floating-fan">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="fanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#e63946;stop-opacity:0.8" />
+                    <stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.8" />
+                </linearGradient>
+            </defs>
+            <!-- Fan Handle -->
+            <rect x="95" y="120" width="10" height="70" rx="5" fill="#1a1a1a" />
+            <!-- Fan Leaves -->
+            <path d="M 100 120 L 30 50 Q 100 10 170 50 Z" fill="url(#fanGrad)" stroke="#1a1a1a" stroke-width="2" />
+            <!-- Fan Ribs -->
+            <line x1="100" y1="120" x2="50" y2="60" stroke="#1a1a1a" stroke-width="1.5" opacity="0.5" />
+            <line x1="100" y1="120" x2="75" y2="40" stroke="#1a1a1a" stroke-width="1.5" opacity="0.5" />
+            <line x1="100" y1="120" x2="125" y2="40" stroke="#1a1a1a" stroke-width="1.5" opacity="0.5" />
+            <line x1="100" y1="120" x2="150" y2="60" stroke="#1a1a1a" stroke-width="1.5" opacity="0.5" />
+        </svg>
+    </div>
+    <div class="hero-content">
+        <!-- Title -->
+        <h1 class="hero-title fade-up-element delay-1" data-en="Revive Traditional Art with <span>Digital Magic</span>" data-cn="用<span>数字魔法</span>复兴传统艺术">
+            Revive Traditional Art with <span>Digital Magic</span>
+        </h1>
+
+        <!-- Paragraph -->
+        <p class="fade-up-element delay-2" data-en="Discover the intersection of ancient heritage and modern technology. Generate unique, symmetrical patterns inspired by traditional aesthetics and save them to your digital gallery." data-cn="探索古老遗产与现代技术的交汇点。生成受传统美学启发的独特对称图案，并将它们保存到您的数字画廊中。">
+            Discover the intersection of ancient heritage and modern technology. Generate unique, symmetrical patterns inspired by traditional aesthetics and save them to your digital gallery.
+        </p>
+
+        <!-- Button -->
+        <a href="/Studio" class="hero-btn fade-up-element delay-3" data-en="Start Creating &rarr;" data-cn="开始创作 &rarr;">
+            Start Creating &rarr;
+        </a>
+    </div>
+</div>
+
+<!-- How it Works Section -->
+<div class="features">
+    <div class="feature-card fade-up-element delay-3">
+        <div class="feature-icon">🎨</div>
+        <h3 data-en="Generate" data-cn="生成">Generate</h3>
+        <p data-en="Use our interactive sliders to adjust petals, thickness, and radius to create perfect symmetrical shapes." data-cn="使用我们的交互式滑块调整花瓣、粗细和半径，以创建完美的对称形状。">Use our interactive sliders to adjust petals, thickness, and radius to create perfect symmetrical shapes.</p>
+    </div>
+    <div class="feature-card fade-up-element delay-4">
+        <div class="feature-icon">⚡</div>
+        <h3 data-en="Real-time Rendering" data-cn="实时渲染">Real-time Rendering</h3>
+        <p data-en="Powered by p5.js, the patterns are rendered instantly in your browser without any lag or delay." data-cn="由 p5.js 提供支持，图案在您的浏览器中即时渲染，没有任何延迟。">Powered by p5.js, the patterns are rendered instantly in your browser without any lag or delay.</p>
+    </div>
+    <div class="feature-card fade-up-element delay-5">
+        <div class="feature-icon">🖼️</div>
+        <h3 data-en="Save & Share" data-cn="保存与分享">Save & Share</h3>
+        <p data-en="Store your masterpieces securely in our database and view them anytime in your personal gallery." data-cn="将您的杰作安全地存储在我们的数据库中，并随时在您的个人画廊中查看。">Store your masterpieces securely in our database and view them anytime in your personal gallery.</p>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const canvas = document.getElementById('bg-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+
+            function resize() {
+                width = canvas.width = canvas.parentElement.offsetWidth;
+                height = canvas.height = canvas.parentElement.offsetHeight;
+            }
+            window.addEventListener("resize", resize);
+            resize();
+
+            const colors = ['#2a52be', '#e63946', '#d4af37', '#2e8b57', '#1a1a1a'];
+            const stripeWidth = 60;
+            const spacing = 140;
+            const speed = 1.5;
+            const drop = height * 1.5;
+            const rightBuffer = 1000;
+            const lineCount = Math.ceil((width + drop + rightBuffer) / spacing) + 2;
+
+            const lines = [];
+            let startX = width + drop + rightBuffer;
+
+            for (let i = 0; i < lineCount; i++) {
+                lines.push({
+                    x: startX - (i * spacing),
+                    color: colors[i % colors.length]
+                });
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+
+                for (let i = 0; i < lines.length; i++) {
+                    let line = lines[i];
+
+                    ctx.strokeStyle = line.color;
+                    ctx.lineWidth = stripeWidth;
+                    ctx.globalAlpha = 0.35;
+                    ctx.lineCap = 'butt';
+
+                    ctx.beginPath();
+
+                    let x1 = line.x;
+                    let y1 = -height * 0.5;
+                    let x2 = line.x - drop;
+                    let y2 = height * 1.5;
+
+                    ctx.moveTo(x1, y1);
+                    ctx.lineTo(x2, y2);
+                    ctx.stroke();
+
+                    line.x -= speed;
+
+                    if (line.x < -(stripeWidth)) {
+                        let maxX = -Infinity;
+                        for (let j = 0; j < lines.length; j++) {
+                            if (lines[j].x > maxX) {
+                                maxX = lines[j].x;
+                            }
+                        }
+                        line.x = maxX + spacing;
+                        line.color = colors[Math.floor(Math.random() * colors.length)];
+                    }
+                }
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        });
+        // --- PAGE LOAD ANIMATIONS ---
+            // Wait a tiny bit for the page to render, then make elements visible
+            setTimeout(() => {
+                const elements = document.querySelectorAll('.fade-up-element');
+                elements.forEach(el => {
+                    el.classList.add('visible');
+                });
+            }, 100);
+    </script>
+}

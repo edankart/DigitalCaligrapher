@@ -1,0 +1,253 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Digital Heritage</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .navbar {
+            background-color: #ffffff !important;
+            border-bottom: 1px solid #eaeaea;
+            padding: 20px 0;
+            box-shadow: none !important;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.4rem;
+            letter-spacing: -0.03em;
+            color: #1a1a1a !important;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: #666 !important;
+            margin: 0 15px;
+            transition: color 0.2s ease;
+            font-size: 0.95rem;
+        }
+
+            .nav-link:hover, .nav-link.active {
+                color: #1a1a1a !important;
+            }
+
+        .btn-create {
+            background-color: #1a1a1a;
+            color: #ffffff !important;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+            .btn-create:hover {
+                background-color: #e63946;
+                transform: translateY(-2px);
+            }
+
+        /* Language Switcher Styles */
+        .lang-switch {
+            display: flex;
+            gap: 5px;
+            background: #f0f0f0;
+            padding: 4px;
+            border-radius: 20px;
+        }
+
+        .lang-btn {
+            border: none;
+            background: transparent;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #666;
+        }
+
+            .lang-btn.active {
+                background: #ffffff;
+                color: #1a1a1a;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            }
+
+        .main-content {
+            flex: 1;
+            padding-bottom: 60px;
+        }
+
+        .footer {
+            background-color: #fafafa;
+            border-top: 1px solid #eaeaea;
+            padding: 40px 0;
+            text-align: center;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+            .footer a {
+                color: #1a1a1a;
+                text-decoration: none;
+                font-weight: 500;
+            }
+        /* Make Chinese text bolder */
+        [lang="cn"] h1,
+        [lang="cn"] h2,
+        [lang="cn"] h3,
+        [lang="cn"] .hero h1 {
+            font-weight: 800 !important;
+        }
+
+        .fade-up-element {
+            /* Start slightly lower and slightly transparent, but still visible */
+            opacity: 0.01;
+            transform: translateY(20px);
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+            .fade-up-element.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        /* Stagger delays (задержки) */
+        .delay-1 {
+            transition-delay: 0.1s;
+        }
+
+        .delay-2 {
+            transition-delay: 0.2s;
+        }
+
+        .delay-3 {
+            transition-delay: 0.3s;
+        }
+
+        .delay-4 {
+            transition-delay: 0.4s;
+        }
+
+        .delay-5 {
+            transition-delay: 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    Digital<span style="color: #e63946;">.</span>Heritage
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1 justify-content-center">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index" data-en="Home" data-cn="首页">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Studio" asp-action="Gallery" data-en="Gallery" data-cn="画廊">Gallery</a>
+                        </li>
+                    </ul>
+                    <div class="d-flex align-items-center gap-3">
+                        <!-- Language Switcher -->
+                        <div class="lang-switch">
+                            <button id="btn-EN" class="lang-btn" onclick="setLanguage('en')">EN</button>
+                            <button id="btn-CN" class="lang-btn" onclick="setLanguage('cn')">中文</button>
+                        </div>
+
+                        <a class="btn-create" asp-area="" asp-controller="Studio" asp-action="Index" data-en="Create Pattern" data-cn="创建图案">Create Pattern</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        @RenderBody()
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p data-en="© 2026 - Digital Heritage Project. Built for the Digital Media Competition." data-cn="© 2026 - 数字遗产项目。为数字媒体竞赛而建。">&copy; 2026 - Digital Heritage Project. Built for the Digital Media Competition.</p>
+            <p data-en="Powered by ASP.NET Core & p5.js" data-cn="由 ASP.NET Core 和 p5.js 提供支持">Powered by ASP.NET Core & p5.js</p>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- Global Language Switcher Script -->
+    <script>
+        function setLanguage(lang) {
+            // Save language to browser's localStorage
+            localStorage.setItem('siteLanguage', lang);
+
+            // Update all elements with data-en and data-cn
+            document.querySelectorAll('[data-en]').forEach(el => {
+                if (lang === 'en') {
+                    el.innerHTML = el.getAttribute('data-en');
+                } else if (lang === 'cn') {
+                    el.innerHTML = el.getAttribute('data-cn');
+                }
+            });
+
+            // Update button styles
+            const btnEN = document.getElementById('btn-EN');
+            const btnCN = document.getElementById('btn-CN');
+
+            if (btnEN && btnCN) {
+                if (lang === 'en') {
+                    btnEN.classList.add('active');
+                    btnCN.classList.remove('active');
+                } else {
+                    btnCN.classList.add('active');
+                    btnEN.classList.remove('active');
+                }
+            }
+        }
+
+        // On page load, check for saved language, or default to English
+        document.addEventListener("DOMContentLoaded", () => {
+            // Get saved language, or default to 'en' if nothing is saved
+            const savedLang = localStorage.getItem('siteLanguage') || 'en';
+
+            // Apply the language (this also handles the button active states)
+            setLanguage(savedLang);
+            setTimeout(() => {
+                const elements = document.querySelectorAll('.fade-up-element');
+                elements.forEach(el => {
+                    el.classList.add('visible');
+                });
+            }, 100);
+        });
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
